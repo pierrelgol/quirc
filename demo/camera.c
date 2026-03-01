@@ -588,4 +588,4 @@ int camera_dequeue_one(struct camera *c)
 		c->s_qhead = 0;
 
 	return 0;
-}
+u

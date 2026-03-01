@@ -10,3 +10,6 @@ libquirc.so*
 *~
 .DS_Store
 .idea
+.zig-cache/
+zig-out/
+*.o

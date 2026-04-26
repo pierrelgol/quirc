@@ -35,7 +35,7 @@ pub fn build(b: *std.Build) void {
             "version_db.c",
         },
         .flags = &.{
-            "-O3", "-Wall", "-fPIC",
+            "-O3", "-Wall", "-fPIC", "-mtune=native",
         },
         .language = .c,
     });

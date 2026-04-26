@@ -19,10 +19,13 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const sanitize = b.option(std.zig.SanitizeC, "sanitize_c", "level of C sanitization") orelse .off;
+
     const mod = b.addModule("quirc", .{
         .root_source_file = null,
         .target = target,
         .optimize = optimize,
+        .sanitize_c = sanitize,
         .link_libc = true,
     });
     mod.addIncludePath(b.path("src/"));
@@ -39,8 +42,15 @@ pub fn build(b: *std.Build) void {
         },
         .language = .c,
     });
-    const quirc_header = b.addInstallHeaderFile(b.path("src/quirc.h"), "quirc.h");
-    const quirc_internal_header = b.addInstallHeaderFile(b.path("src/quirc_internal.h"), "quirc_internal.h");
+    const quirc_header = b.addInstallHeaderFile(
+        b.path("src/quirc.h"),
+        "quirc.h",
+    );
+
+    const quirc_internal_header = b.addInstallHeaderFile(
+        b.path("src/quirc_internal.h"),
+        "quirc_internal.h",
+    );
 
     const lib = b.addLibrary(.{
         .name = "quirc",
